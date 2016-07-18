@@ -1,26 +1,29 @@
 package com.example.domain;
+
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 
-@Entity // Entidad PAREJA
-public class Pareja {
+@Entity // Entidad AMISTAD
+public class Amistad {
 
     @Id
     @GeneratedValue
     private Long id;
-    @OneToOne
+    @ManyToOne
     private Persona persona1;
-    @OneToOne
+    @ManyToOne
     private Persona persona2;
 
 
-    public Pareja() {
+    public Amistad() { // Hibernate accede a la base de datos mediante este constructor vacio, y construye los objetos
+
     }
 
-    public Pareja(Persona persona1, Persona persona2) {
+    public Amistad(Persona persona1, Persona persona2) {
         this.persona1 = persona1;
         this.persona2 = persona2;
     }
@@ -49,9 +52,10 @@ public class Pareja {
         this.persona2 = persona2;
     }
 
+
     @Override
     public String toString() {
-        return "Pareja{" +
+        return "Amistad{" +
                 "id=" + id +
                 ", persona1=" + persona1 +
                 ", persona2=" + persona2 +
@@ -63,17 +67,20 @@ public class Pareja {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Pareja pareja = (Pareja) o;
+        Amistad amistad = (Amistad) o;
 
-        if (!getPersona1().equals(pareja.getPersona1())) return false;
-        return getPersona2().equals(pareja.getPersona2());
+        if (getId() != null ? !getId().equals(amistad.getId()) : amistad.getId() != null) return false;
+        if (getPersona1() != null ? !getPersona1().equals(amistad.getPersona1()) : amistad.getPersona1() != null)
+            return false;
+        return getPersona2() != null ? getPersona2().equals(amistad.getPersona2()) : amistad.getPersona2() == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = getPersona1().hashCode();
-        result = 31 * result + getPersona2().hashCode();
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getPersona1() != null ? getPersona1().hashCode() : 0);
+        result = 31 * result + (getPersona2() != null ? getPersona2().hashCode() : 0);
         return result;
     }
 }

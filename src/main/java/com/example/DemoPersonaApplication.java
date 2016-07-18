@@ -39,13 +39,33 @@ public class DemoPersonaApplication {
 		persona2.setEdad(25);
 		redSocialService.anadirPersona(persona2);
 
+		Persona persona3 = new Persona();
+		persona3.setNombre("Ismael");
+		persona3.setApellido("Rivera");
+		persona3.setEdad(29);
+		redSocialService.anadirPersona(persona3);
+
+		Persona persona4 = new Persona();
+		persona4.setNombre("Judith");
+		persona4.setApellido("Sala");
+		persona4.setEdad(24);
+		redSocialService.anadirPersona(persona4);
+
+		// Creamos otra persona para la prueba de parejas
 		Persona novia = new Persona();
 		novia.setNombre("novia");
 		novia.setApellido("apellido");
 		novia.setEdad(22);
 		redSocialService.anadirPersona(novia);
+
+		// Añadimos parejas
 		redSocialService.anadirPareja(persona, novia);
 
+		// Añadimos amistades
+		redSocialService.anadirAmistad(persona, persona2);
+		redSocialService.anadirAmistad(persona, persona3);
+
 		System.out.println("La pareja de Ivan es: " + redSocialService.obtenerPareja(persona));
+		System.out.println("Las amistades de Ivan son: " + redSocialService.obtenerAmistades(persona));
 	}
 }
